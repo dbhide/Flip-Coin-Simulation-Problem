@@ -3,7 +3,7 @@
 declare -A coin
 
 read -p "How many times you want to flip coin? " flipCount
-read -p "Enter choice : 1] Singlet 2] Doublet " choice
+read -p "Enter choice : 1] Singlet 2] Doublet 3] Triplet" choice
 
 case $choice in
    1)
@@ -12,6 +12,9 @@ case $choice in
    2)
       coinCount=2
       ;;
+	3)
+		coinCount=3
+		;;
 esac
 
 
@@ -50,4 +53,3 @@ function Percentage()
 
 CoinFlip $flipCount $coinCount
 Percentage
-
