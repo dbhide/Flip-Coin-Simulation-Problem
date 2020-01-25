@@ -51,5 +51,14 @@ function Percentage()
       echo "Percent ${coin[@]}"
 }
 
+function  WinnerCombination()
+{
+	for i in ${!coin[@]}
+	do
+		echo "$i ${coin[$i]}"
+	done | sort -k2 -rn | head -1
+}
+
 CoinFlip $flipCount $coinCount
 Percentage
+WinnerCombination
