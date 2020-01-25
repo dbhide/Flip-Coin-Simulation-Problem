@@ -1,30 +1,53 @@
 #!/bin/bash -x
 
-read -p "How many times you want to flip coin? " flipCount
-
 declare -A coin
 
-counter=1;
-coinCheck=1;
-heads=0;
-tails=0;
+read -p "How many times you want to flip coin? " flipCount
+read -p "Enter choice : 1] Singlet 2] Doublet " choice
 
-while [ $counter -le $flipCount ]
-do
-	coinFlip=$((RANDOM%2));
-   if [ $coinCheck -eq $coinFlip ]
-   then
-      coin[H]=$((++heads))
-      echo "Heads!!"
-   else
-      coin[T]=$((++tails))
-      echo "Tails!!"
-   fi
-   ((counter++))
-done
-
-echo "Head Percentage = `echo "scale=2; ${coin[H]}*100/$flipCount" | bc` %"
-echo "Tail Percentage = `echo "scale=2; ${coin[T]}*100/$flipCount" | bc` %"
+case $choice in
+   1)
+      coinCount=1
+      ;;
+   2)
+      coinCount=2
+      ;;
+esac
 
 
-echo "FlipCoin " ${coin[@]}
+function CoinFlip()
+{
+	for((i=1; i<=$1; i++))
+   do
+   	side=""
+      	for((j=1;j<=$2;j++))
+         	do
+            	if [ $((RANDOM%2)) -eq 1 ]
+               then
+               	side+=H
+               else
+                 	side+=T
+               fi
+            done
+            Count $side
+  done
+}
+
+function Count()
+{
+	coin[$1]=$((${coin[$1]}+1))
+}
+
+function Percentage()
+{
+	for i in ${!coin[@]}
+   do
+   	coin[$i]=`echo "scale=2; ${coin[$i]}*100/$flipCount" | bc`
+   done
+      echo "Key Value ${!coin[@]}"
+      echo "Percent ${coin[@]}"
+}
+
+CoinFlip $flipCount $coinCount
+Percentage
+
