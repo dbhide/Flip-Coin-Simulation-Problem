@@ -23,7 +23,8 @@ do
    ((counter++))
 done
 
-percentHead=$((coin[H]*100/$flipCount))
-percentTail=$((coin[T]*100/$flipCount))
+echo "Head Percentage = `echo "scale=2; ${coin[H]}*100/$flipCount" | bc` %"
+echo "Tail Percentage = `echo "scale=2; ${coin[T]}*100/$flipCount" | bc` %"
+
 
 echo "FlipCoin " ${coin[@]}
